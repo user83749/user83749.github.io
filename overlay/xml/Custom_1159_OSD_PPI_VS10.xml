@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	Custom_1159_OSD_PPI_VS10.xml
+	VS10 output-mode quick switch for P3i / CoreELEC "VS10" Kodi 21 builds.
+	Opened from the video OSD (button 717); only useful where Action(vs10.*)
+	exists - guarded by the service.coreelec.settings addon so it is inert
+	elsewhere.
+-->
+<window type="dialog" id="1159">
+	<defaultcontrol always="true">8490</defaultcontrol>
+	<include>Animation_DialogPopupOpenClose</include>
+	<onload>CancelAlarm(osd_timeout,true)</onload>
+	<controls>
+		<control type="group">
+			<centerleft>50%</centerleft>
+			<width>640</width>
+			<centertop>50%</centertop>
+			<height>560</height>
+			<include content="DialogBackgroundCommons">
+				<param name="header_label" value="$LOCALIZE[31965]" />
+				<param name="header_id" value="" />
+			</include>
+			<control type="group">
+				<left>0</left>
+				<top>80</top>
+				<control type="grouplist" id="8400">
+					<width>640</width>
+					<height>460</height>
+					<itemgap>0</itemgap>
+					<onup>8400</onup>
+					<ondown>8400</ondown>
+					<orientation>vertical</orientation>
+
+					<!-- VS10 -> Dolby Vision -->
+					<control type="radiobutton" id="8490">
+						<width>640</width>
+						<include>DialogSettingButton</include>
+						<label>$LOCALIZE[31980]</label>
+						<selected>[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + !String.Contains(Player.Process(video.hdr.type),Dolby)</selected>
+						<visible>!Integer.IsEqual(Player.Process(video.source.hdr.type.raw),3)</visible>
+						<onclick>Action(vs10.dv)</onclick>
+						<onclick>Dialog.Close(all)</onclick>
+					</control>
+
+					<!-- VS10 -> HDR10 -->
+					<control type="radiobutton" id="8491">
+						<width>640</width>
+						<include>DialogSettingButton</include>
+						<label>$LOCALIZE[31981]</label>
+						<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),2)</selected>
+						<visible>!Integer.IsEqual(Player.Process(video.source.hdr.type.raw),2)</visible>
+						<onclick>Action(vs10.hdr10)</onclick>
+						<onclick>Dialog.Close(all)</onclick>
+					</control>
+
+					<!-- VS10 -> SDR -->
+					<control type="radiobutton" id="8492">
+						<width>640</width>
+						<include>DialogSettingButton</include>
+						<label>$LOCALIZE[31982]</label>
+						<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),3)</selected>
+						<onclick>Action(vs10.sdr)</onclick>
+						<onclick>Dialog.Close(all)</onclick>
+					</control>
+
+					<!-- VS10 -> Original / passthrough -->
+					<control type="radiobutton" id="8493">
+						<width>640</width>
+						<include>DialogSettingButton</include>
+						<label>$LOCALIZE[31964]</label>
+						<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),5) | [[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + String.Contains(Player.Process(video.hdr.type),Dolby)]</selected>
+						<onclick>Action(vs10.original)</onclick>
+						<onclick>Dialog.Close(all)</onclick>
+					</control>
+
+					<!-- Full player process info -->
+					<control type="button" id="8499">
+						<width>640</width>
+						<include>DialogSettingButton</include>
+						<label>[CAPITALIZE]$LOCALIZE[10116][/CAPITALIZE]</label>
+						<onclick>Dialog.Close(all)</onclick>
+						<onclick>ActivateWindow(playerprocessinfo)</onclick>
+					</control>
+				</control>
+			</control>
+		</control>
+	</controls>
+</window>

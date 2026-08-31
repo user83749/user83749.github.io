@@ -1,0 +1,121 @@
+name: Sync & publish Nimbus PPI
+
+on:
+  schedule:
+    - cron: "17 6 * * *"        # daily 06:17 UTC
+  workflow_dispatch:
+    inputs:
+      force:
+        description: "Rebuild even if nothing changed"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "overlay/**"
+      - "patches/**"
+      - "repo-src/**"
+      - "build/**"
+      - ".github/workflows/sync.yml"
+
+permissions:
+  contents: write        # create Releases
+  pages: write
+  id-token: write
+
+concurrency:
+  group: nimbus-ppi-sync
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install tools
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq libxml2-utils zip
+
+      - name: Resolve URLs & state
+        id: ctx
+        run: |
+          BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
+          echo "base=$BASE" >> "$GITHUB_OUTPUT"
+          # upstream version (raw addon.xml on main)
+          UPVER=$(curl -fsSL https://raw.githubusercontent.com/ivarbrandt/skin.nimbus/main/addon.xml \
+                  | grep -oE '<addon[^>]*version="[^"]+"' | grep -oE 'version="[^"]+"' | head -1 | cut -d'"' -f2)
+          echo "upstream=$UPVER" >> "$GITHUB_OUTPUT"
+          # content hash of everything that shapes the build
+          HASH=$(find overlay patches repo-src build -type f -print0 | sort -z \
+                 | xargs -0 sha1sum | sha1sum | cut -c1-12)
+          echo "hash=$HASH" >> "$GITHUB_OUTPUT"
+          # previous state (published on Pages); missing on first run
+          PREV=$(curl -fsSL "$BASE/last-build.json" || echo '{}')
+          echo "prev_upstream=$(echo "$PREV" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("upstream",""))')" >> "$GITHUB_OUTPUT"
+          echo "prev_hash=$(echo "$PREV"     | python3 -c 'import json,sys;print(json.load(sys.stdin).get("hash",""))')"     >> "$GITHUB_OUTPUT"
+          echo "prev_serial=$(echo "$PREV"   | python3 -c 'import json,sys;print(json.load(sys.stdin).get("serial",0))')"    >> "$GITHUB_OUTPUT"
+
+      - name: Decide
+        id: decide
+        run: |
+          FORCE="${{ github.event.inputs.force }}"
+          if [ "$FORCE" = "true" ] \
+             || [ "${{ steps.ctx.outputs.upstream }}" != "${{ steps.ctx.outputs.prev_upstream }}" ] \
+             || [ "${{ steps.ctx.outputs.hash }}" != "${{ steps.ctx.outputs.prev_hash }}" ]; then
+            echo "build=yes" >> "$GITHUB_OUTPUT"
+            echo "serial=$(( ${{ steps.ctx.outputs.prev_serial }} + 1 ))" >> "$GITHUB_OUTPUT"
+          else
+            echo "build=no" >> "$GITHUB_OUTPUT"
+            echo "Nothing changed (upstream ${{ steps.ctx.outputs.upstream }}, hash ${{ steps.ctx.outputs.hash }}). Skipping."
+          fi
+
+      - name: Build skin
+        if: steps.decide.outputs.build == 'yes'
+        id: bld
+        env:
+          SERIAL: ${{ steps.decide.outputs.serial }}
+        run: |
+          bash build/build.sh main | tee build.log
+          echo "version=$(grep -oE '^VERSION=.*' build.log | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Assemble repository
+        if: steps.decide.outputs.build == 'yes'
+        run: |
+          python3 build/make_repo.py \
+            --skin-dir out/skin.nimbus.ppi \
+            --skin-zip out/skin.nimbus.ppi-${{ steps.bld.outputs.version }}.zip \
+            --base-url "${{ steps.ctx.outputs.base }}" \
+            --out out/www
+          python3 - <<'PY'
+          import json
+          json.dump({"upstream":"${{ steps.ctx.outputs.upstream }}",
+                     "hash":"${{ steps.ctx.outputs.hash }}",
+                     "serial": ${{ steps.decide.outputs.serial }},
+                     "version":"${{ steps.bld.outputs.version }}"},
+                    open("out/www/last-build.json","w"), indent=2)
+          PY
+
+      - name: Upload Pages artifact
+        if: steps.decide.outputs.build == 'yes'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/www
+
+      - name: Deploy Pages
+        if: steps.decide.outputs.build == 'yes'
+        id: deploy
+        uses: actions/deploy-pages@v4
+
+      - name: GitHub Release
+        if: steps.decide.outputs.build == 'yes'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.bld.outputs.version }}
+          name: skin.nimbus.ppi ${{ steps.bld.outputs.version }}
+          body: |
+            Built from upstream ivarbrandt/skin.nimbus ${{ steps.ctx.outputs.upstream }}.
+            Repository (auto-update): `${{ steps.ctx.outputs.base }}/`
+          files: out/skin.nimbus.ppi-${{ steps.bld.outputs.version }}.zip

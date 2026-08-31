@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="repository.nimbus.ppi" name="Nimbus PPI Repository" version="1.0.0" provider-name="nimbus-ppi">
+  <extension point="xbmc.addon.repository" name="Nimbus PPI Repository">
+    <dir>
+      <info compressed="false">@@BASEURL@@/addons.xml</info>
+      <checksum>@@BASEURL@@/addons.xml.md5</checksum>
+      <datadir zip="true">@@BASEURL@@/zips/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Auto-updates the Nimbus PPI skin</summary>
+    <description lang="en_GB">Delivers skin.nimbus.ppi - the Nimbus skin with the Player Process Info (PPI) dashboard and VS10 quick switch for P3i / CoreELEC "VS10" Kodi builds. Rebuilt automatically whenever upstream Nimbus publishes a new version.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

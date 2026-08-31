@@ -1,0 +1,16 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+    paths: ["overlay/**", "patches/**", "tests/**", "build/**"]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  inject:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq && sudo apt-get install -y -qq libxml2-utils
+      - run: bash tests/run.sh

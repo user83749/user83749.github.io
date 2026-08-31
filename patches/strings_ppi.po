@@ -1,0 +1,380 @@
+
+# ==========================================================================
+# Player Process Info (PPI) strings
+# ==========================================================================
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31900"
+msgid "Display mode"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31901"
+msgid "Video mode"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31902"
+msgid "Color space"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31903"
+msgid "Mb/s"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31904"
+msgid "Video bit depth"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31905"
+msgid "Decoder"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31906"
+msgid "VS10 | VP mode"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31907"
+msgid "Processing"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31908"
+msgid "Video queue"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31909"
+msgid "Video queue data"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31910"
+msgid "Audio queue"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31911"
+msgid "Audio queue data"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31912"
+msgid "Kb/s"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31913"
+msgid "Playback time"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31914"
+msgid "Processor"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31915"
+msgid "Metadata"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31916"
+msgid "Profile"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31917"
+msgid "Level"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31918"
+msgid "RPU"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31919"
+msgid "Base Layer"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31920"
+msgid "Enhancement Layer"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31921"
+msgid "CMv2.9 -> CMv4.0"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31922"
+msgid "Metadata"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31923"
+msgid "Output format"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31924"
+msgid "Aspect ratio"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31925"
+msgid "HDR10 MDL"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31926"
+msgid "HDR10 MaxCLL/FALL"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31927"
+msgid "Media source"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31931"
+msgid "Deinterlacing"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31932"
+msgid "Player cache"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31933"
+msgid "N/A"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31934"
+msgid "Memory usage"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31935"
+msgid "Passthrough"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31936"
+msgid "AML FPS"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31939"
+msgid "HDR Static Metadata"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31940"
+msgid "cd/m²"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31941"
+msgid "RPU MDL"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31942"
+msgid "RPU MaxCLL/FALL"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31943"
+msgid "FLL MIN / MAX / Ø"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31944"
+msgid "PQ  MIN / MAX / Ø"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31945"
+msgid "12-bit"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31946"
+msgid "Codec"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31947"
+msgid "Bitrate"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31948"
+msgid "VS10 status"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31951"
+msgid "Input"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31952"
+msgid "Audio language"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31953"
+msgid "Subtitle language"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31954"
+msgid "Video"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31955"
+msgid "Output"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31956"
+msgid "Audio"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31957"
+msgid "Top left"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31958"
+msgid "Top center"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31959"
+msgid "Top right"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31964"
+msgid "Original"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31965"
+msgid "VS10"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31967"
+msgid "L5 Active Offsets"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31968"
+msgid "Version"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31969"
+msgid "Bit depth"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31970"
+msgid "EOTF & Gamut"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31977"
+msgid "Modern"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31987"
+msgid "Decoding"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31988"
+msgid "System"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31990"
+msgid "failed"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31991"
+msgid "detected"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31992"
+msgid "skipped"
+msgstr ""
+
+#: /xml/Includes_PPI.xml
+msgctxt "#31993"
+msgid "running"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31980"
+msgid "Dolby Vision"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31981"
+msgid "HDR10"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31982"
+msgid "SDR"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31983"
+msgid "Enable PPI dashboard"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31984"
+msgid "Codec logo panel"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31985"
+msgid "Show speaker layout"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31986"
+msgid "Show filename row"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31994"
+msgid "Hide the PPI button in the video OSD"
+msgstr ""
+
+#: /xml/SkinSettings.xml
+msgctxt "#31995"
+msgid "Player info (PPI)"
+msgstr ""
+
