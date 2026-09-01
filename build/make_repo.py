@@ -124,27 +124,18 @@ def main():
     (out / "addons.xml.md5").write_text(
         hashlib.md5(addons_xml.encode("utf-8")).hexdigest() + "\n", encoding="utf-8")
 
-    # --- index.html ---------------------------------------------------------------
-    # NOTE: must expose real <a href> links so Kodi's HTTP directory browser
-    # (which scrapes href="" out of HTML) can list this folder. A plain prose
-    # page makes Kodi show an empty folder.
-    links = [
-        (repo_zip_name, repo_zip_name),
-        ("addons.xml", "addons.xml"),
-        ("addons.xml.md5", "addons.xml.md5"),
-        ("last-build.json", "last-build.json"),
-        ("zips/", "zips/"),
-    ]
-    li = "\n".join(f'<li><a href="{href}">{text}</a></li>' for href, text in links)
+    # --- index.html -------------------------------------------------------------
+    # The ONLY <a href> is the repository zip, so Kodi's "Install from zip file"
+    # browser shows exactly one selectable entry. addons.xml / md5 / the zips/
+    # datadir are still served by direct URL (that's all the repo needs) but are
+    # deliberately not linked here, so they don't clutter the picker.
     (out / "index.html").write_text(f"""<!DOCTYPE html>
 <html><head><meta charset="utf-8"><title>Nimbus PPI repository</title>
 <style>body{{font:16px/1.5 system-ui,sans-serif;max-width:44rem;margin:3rem auto;padding:0 1rem}}
 code{{background:#eee;padding:.1em .3em;border-radius:3px}}</style></head><body>
 <h1>Nimbus PPI &ndash; Kodi repository</h1>
 <p>Skin build: <code>{skin_id} {skin_ver}</code></p>
-<ul>
-{li}
-</ul>
+<p>Repository add-on: <a href="{repo_zip_name}">{repo_zip_name}</a></p>
 <h2>Install</h2>
 <ol>
 <li>Kodi &rarr; <em>Settings &rarr; File manager &rarr; Add source</em> &rarr; <code>{base}/</code></li>
@@ -155,13 +146,6 @@ code{{background:#eee;padding:.1em .3em;border-radius:3px}}</style></head><body>
 <code>script.nimbus.helper</code>, which this skin depends on.</p>
 </body></html>
 """, encoding="utf-8")
-
-    # Kodi's HTML dir parser also wants a listing inside zips/ and each subdir.
-    for sub in (out / "zips", zdir_skin, zdir_repo):
-        entries = sorted(p.name + ("/" if p.is_dir() else "") for p in sub.iterdir())
-        rows = "\n".join(f'<li><a href="{e}">{e}</a></li>' for e in entries)
-        (sub / "index.html").write_text(
-            f"<!DOCTYPE html><html><body><ul>\n{rows}\n</ul></body></html>\n", encoding="utf-8")
 
     print(f"make_repo.py: wrote {out}/  (skin {skin_id} {skin_ver}, repo {repo_id} {repo_ver})")
 
