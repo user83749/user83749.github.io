@@ -2,12 +2,11 @@
 <!--
 	Custom_1159_OSD_PPI_VS10.xml
 	VS10 output-mode quick switch for P3i / CoreELEC "VS10" Kodi 21 builds.
-	Opened from the video OSD (button 717); only useful where Action(vs10.*)
-	exists - guarded by the service.coreelec.settings addon so it is inert
-	elsewhere.
+	Opened from the video OSD (button 717); Action(vs10.*) only exists on those
+	builds, elsewhere the buttons are harmless no-ops.
 -->
 <window type="dialog" id="1159">
-	<defaultcontrol always="true">8490</defaultcontrol>
+	<defaultcontrol>8400</defaultcontrol>
 	<include>Animation_DialogPopupOpenClose</include>
 	<onload>CancelAlarm(osd_timeout,true)</onload>
 	<controls>
@@ -27,8 +26,6 @@
 					<width>640</width>
 					<height>460</height>
 					<itemgap>0</itemgap>
-					<onup>8400</onup>
-					<ondown>8400</ondown>
 					<orientation>vertical</orientation>
 
 					<!-- VS10 -> Dolby Vision -->
@@ -37,7 +34,6 @@
 						<include>DialogSettingButton</include>
 						<label>$LOCALIZE[31980]</label>
 						<selected>[Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),0) | Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),1)] + !String.Contains(Player.Process(video.hdr.type),Dolby)</selected>
-						<visible>!Integer.IsEqual(Player.Process(video.source.hdr.type.raw),3)</visible>
 						<onclick>Action(vs10.dv)</onclick>
 						<onclick>Dialog.Close(all)</onclick>
 					</control>
@@ -48,7 +44,6 @@
 						<include>DialogSettingButton</include>
 						<label>$LOCALIZE[31981]</label>
 						<selected>Integer.IsEqual(Player.Process(amlogic.vs10.mode.raw),2)</selected>
-						<visible>!Integer.IsEqual(Player.Process(video.source.hdr.type.raw),2)</visible>
 						<onclick>Action(vs10.hdr10)</onclick>
 						<onclick>Dialog.Close(all)</onclick>
 					</control>
