@@ -58,7 +58,7 @@ else
   echo ">> applying overlay"
   cp -R "$ROOT/overlay/." "$WORK/src/"
   echo ">> running inject.py"
-  python3 "$ROOT/patches/inject.py" "$WORK/src" "$VERSION"
+  python3 "$ROOT/patches/inject.py" "$WORK/src" "$VERSION" "${STAGE:-full}"
 fi
 
 echo ">> validating XML"

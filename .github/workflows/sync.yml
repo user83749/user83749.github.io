@@ -13,6 +13,11 @@ on:
         description: "Diagnostic: publish STOCK Nimbus with no PPI mod"
         type: boolean
         default: false
+      stage:
+        description: "Diagnostic: bisect the mod (globals|osd|dppi|full)"
+        type: choice
+        options: [full, globals, osd, dppi]
+        default: full
   push:
     branches: [main]
     paths:
@@ -77,6 +82,7 @@ jobs:
         run: |
           FORCE="${{ github.event.inputs.force }}"
           [ "${{ github.event.inputs.clean }}" = "true" ] && FORCE=true
+          [ -n "${{ github.event.inputs.stage }}" ] && [ "${{ github.event.inputs.stage }}" != "full" ] && FORCE=true
           BASEVER="${{ steps.ctx.outputs.basever }}"
           PREV_VER="${{ steps.ctx.outputs.prev_version }}"
           # restart the .serial counter at 0 whenever the base ("1.6") changes
@@ -101,7 +107,7 @@ jobs:
         env:
           SERIAL: ${{ steps.decide.outputs.serial }}
         run: |
-          NOMOD="${{ github.event.inputs.clean }}" bash build/build.sh main | tee build.log
+          NOMOD="${{ github.event.inputs.clean }}" STAGE="${{ github.event.inputs.stage }}" bash build/build.sh main | tee build.log
           echo "version=$(grep -oE '^VERSION=.*' build.log | cut -d= -f2)" >> "$GITHUB_OUTPUT"
 
       - name: Assemble repository

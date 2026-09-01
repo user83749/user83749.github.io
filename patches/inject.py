@@ -323,21 +323,34 @@ def patch_strings(text):
 # --------------------------------------------------------------------- main ---
 def main(argv):
     if len(argv) < 3:
-        sys.exit("usage: inject.py <upstream_dir> <version>")
+        sys.exit("usage: inject.py <upstream_dir> <version> [stage]")
     root = pathlib.Path(argv[1]).resolve()
     version = argv[2]
+    # stage lets us bisect the mod:  globals < osd < dppi < full  (default full)
+    stage = (argv[3] if len(argv) > 3 else "full").strip().lower()
+    order = ["globals", "osd", "dppi", "full"]
+    if stage not in order:
+        sys.exit(f"inject.py: unknown stage '{stage}' (want one of {order})")
+    lvl = order.index(stage)
     if not (root / "addon.xml").is_file():
         sys.exit(f"inject.py: {root} is not a skin.nimbus checkout (no addon.xml)")
 
-    print(f"inject.py: patching {root} as version {version}")
+    print(f"inject.py: patching {root} as version {version} (stage={stage})")
+    # --- globals: pure additions, no upstream-window edits ---
     edit(root / "addon.xml", lambda t: patch_addon(t, version))
     edit(root / "xml/Includes.xml", patch_includes)
     edit(root / "xml/Font.xml", patch_font)
     edit(root / "colors/defaults.xml", patch_colors)
-    edit(root / "xml/DialogPlayerProcessInfo.xml", patch_dppi)
-    edit(root / "xml/VideoOSD.xml", patch_videoosd)
-    edit(root / "xml/SkinSettings.xml", patch_skinsettings)
     edit(root / "language/resource.language.en_gb/strings.po", patch_strings)
+    # --- osd: the video OSD button ---
+    if lvl >= order.index("osd"):
+        edit(root / "xml/VideoOSD.xml", patch_videoosd)
+    # --- dppi: the dashboard window wrapper ---
+    if lvl >= order.index("dppi"):
+        edit(root / "xml/DialogPlayerProcessInfo.xml", patch_dppi)
+    # --- full: everything else ---
+    if lvl >= order.index("full"):
+        edit(root / "xml/SkinSettings.xml", patch_skinsettings)
     print("inject.py: done")
 
 
