@@ -1084,77 +1084,32 @@
 			<control type="group">
 				<visible>String.Contains(Player.Process(video.hdr.type),sdr)</visible>
 				<top>300</top>
-				<width>1325</width>
+				<left>0</left>
+				<right>0</right>
 				<height>775</height>
 				<include>PPIUnifiedBackgroundPadded</include>
 
-				<control type="group">
-					<left>40</left>
-					<right>40</right>
-					<top>26</top>
-					<control type="label">
-						<height>40</height>
-						<label>[B][UPPERCASE]$LOCALIZE[10116][/UPPERCASE][/B]</label>
-						<font>font_tiny</font>
-						<textcolor>dialog_fg_100</textcolor>
-					</control>
-					<control type="image">
-						<top>46</top>
-						<height>1</height>
-						<texture colordiffuse="dialog_fg_12">common/selectedwhite.png</texture>
-					</control>
-				</control>
 			</control>
 
 			<control type="group">
 				<visible>String.Contains(Player.Process(video.source.hdr.type),Dolby Vision) + String.Contains(Player.Process(video.dovi.profile),0)</visible>
 				<top>300</top>
-				<width>1325</width>
+				<left>0</left>
+				<right>0</right>
 				<height>775</height>
 				<include>PPIUnifiedBackgroundPadded</include>
 
-				<control type="group">
-					<left>40</left>
-					<right>40</right>
-					<top>26</top>
-					<control type="label">
-						<height>40</height>
-						<label>[B][UPPERCASE]$LOCALIZE[10116][/UPPERCASE][/B]</label>
-						<font>font_tiny</font>
-						<textcolor>dialog_fg_100</textcolor>
-					</control>
-					<control type="image">
-						<top>46</top>
-						<height>1</height>
-						<texture colordiffuse="dialog_fg_12">common/selectedwhite.png</texture>
-					</control>
-				</control>
 			</control>
 
 			<!-- Long background -->
 			<control type="group">
 				<visible>String.IsEqual(Player.Process(video.dovi.has.config),1) | String.Contains(Player.Process(video.hdr.type),hdr)</visible>
 				<top>300</top>
-				<width>1920</width>
+				<left>0</left>
+				<right>0</right>
 				<height>775</height>
 				<include>PPIUnifiedBackgroundPadded</include>
 
-				<control type="group">
-					<left>40</left>
-					<right>40</right>
-					<top>26</top>
-					<control type="label">
-						<height>40</height>
-						<label>[B][UPPERCASE]$LOCALIZE[10116][/UPPERCASE][/B]</label>
-						<font>font_tiny</font>
-						<textcolor>dialog_fg_100</textcolor>
-					</control>
-					<control type="image">
-						<top>46</top>
-						<height>1</height>
-						<texture colordiffuse="dialog_fg_12">common/selectedwhite.png</texture>
-					</control>
-				</control>
 			</control>
 			
 			<!-- Codec logos -->
@@ -1637,9 +1592,11 @@
 						<control type="progress">
 							<description>BAR</description>
 							<centertop>50%</centertop>
+							<width>100%</width>
+							<height>6</height>
 							<info>Player.CacheLevel</info>
-							<texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
-							<midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
+							<midtexture colordiffuse="accent_color" border="3">progress/progress-bg.png</midtexture>
 						</control>
 					</control>
 					
@@ -1664,9 +1621,11 @@
 						<control type="progress">
 							<description>BAR</description>
 							<centertop>50%</centertop>
+							<width>100%</width>
+							<height>6</height>
 							<info>Player.Process(video.queue.level)</info>
-							<texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
-							<midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
+							<midtexture colordiffuse="accent_color" border="3">progress/progress-bg.png</midtexture>
 						</control>
 					</control>
 					
@@ -1691,9 +1650,11 @@
 						<control type="progress">
 							<description>BAR</description>
 							<centertop>50%</centertop>
+							<width>100%</width>
+							<height>6</height>
 							<info>Player.Process(video.queue.data.level)</info>
-							<texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
-							<midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
+							<midtexture colordiffuse="accent_color" border="3">progress/progress-bg.png</midtexture>
 						</control>
 					</control>
 					
@@ -1718,9 +1679,11 @@
 						<control type="progress">
 							<description>BAR</description>
 							<centertop>50%</centertop>
+							<width>100%</width>
+							<height>6</height>
 							<info>Player.Process(audio.queue.level)</info>
-							<texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
-							<midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
+							<midtexture colordiffuse="accent_color" border="3">progress/progress-bg.png</midtexture>
 						</control>
 					</control>
 					
@@ -1745,9 +1708,11 @@
 						<control type="progress">
 							<description>BAR</description>
 							<centertop>50%</centertop>
+							<width>100%</width>
+							<height>6</height>
 							<info>Player.Process(audio.queue.data.level)</info>
-							<texturebg colordiffuse="panel_fg_12" border="6">progress/progress-bg.png</texturebg>
-							<midtexture colordiffuse="dialog_fg_90" border="6">progress/progress-bg.png</midtexture>
+							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
+							<midtexture colordiffuse="accent_color" border="3">progress/progress-bg.png</midtexture>
 						</control>
 					</control>
 				</control>
@@ -2048,7 +2013,7 @@
 						<left>326</left>
 						<top>141</top>
 						<label>$VAR[RPUPresentVar]</label>
-						<font>font_tiny</font>
+						<font>font_tiny_iconic_regular</font>
 						<textcolor>dialog_fg_90</textcolor>
 					</control>
 					
@@ -2063,7 +2028,7 @@
 						<left>326</left>
 						<top>171</top>
 						<label>$VAR[BLPresentVar]</label>
-						<font>font_tiny</font>
+						<font>font_tiny_iconic_regular</font>
 						<textcolor>dialog_fg_90</textcolor>
 					</control>
 					
@@ -2078,14 +2043,14 @@
 						<left>326</left>
 						<top>201</top>
 						<label>$VAR[ELPresentVar]</label>
-						<font>font_tiny</font>
+						<font>font_tiny_iconic_regular</font>
 						<textcolor>dialog_fg_90</textcolor>
 					</control>
 					<control type="label">
 						<left>395</left>
 						<top>201</top>
 						<label>$VAR[ELSourcePresentVar]</label>
-						<font>font_tiny</font>
+						<font>font_tiny_iconic_regular</font>
 						<textcolor>dialog_fg_90</textcolor>
 						<visible>!String.IsEqual(Player.Process(video.source.dovi.el.present),Player.Process(video.dovi.el.present))</visible>
 						<visible>!String.IsEqual(Player.Process(video.source.dovi.profile),0)</visible>
@@ -2102,7 +2067,7 @@
 						<left>326</left>
 						<top>231</top>
 						<label>$VAR[CMModeVar]</label>
-						<font>font_tiny</font>
+						<font>font_tiny_iconic_regular</font>
 						<textcolor>dialog_fg_90</textcolor>
 					</control>
 				</control>

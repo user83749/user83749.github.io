@@ -171,28 +171,28 @@
 	</variable>
 
 	<variable name="CMModeVar">
-		<value condition="!String.StartsWith(Player.Process(video.dovi.meta.version),V)">[COLOR tomato]No[/COLOR]</value>
-		<value condition="String.StartsWith(Player.Process(video.dovi.meta.version),V)">[COLOR palegreen]Yes[/COLOR]</value>
+		<value condition="!String.StartsWith(Player.Process(video.dovi.meta.version),V)">[COLOR tomato]&#xEB98;[/COLOR]</value>
+		<value condition="String.StartsWith(Player.Process(video.dovi.meta.version),V)">[COLOR palegreen]&#xEB7B;[/COLOR]</value>
 	</variable>
 
 	<variable name="RPUPresentVar">
-		<value condition="String.IsEqual(Player.Process(video.dovi.rpu.present),1)">[COLOR palegreen]Yes[/COLOR]</value>
-		<value>[COLOR tomato]No[/COLOR]</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.rpu.present),1)">[COLOR palegreen]&#xEB7B;[/COLOR]</value>
+		<value>[COLOR tomato]&#xEB98;[/COLOR]</value>
 	</variable>
 
 	<variable name="BLPresentVar">
-		<value condition="String.IsEqual(Player.Process(video.dovi.bl.present),1)">[COLOR palegreen]Yes[/COLOR]</value>
-		<value>[COLOR tomato]No[/COLOR]</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.bl.present),1)">[COLOR palegreen]&#xEB7B;[/COLOR]</value>
+		<value>[COLOR tomato]&#xEB98;[/COLOR]</value>
 	</variable>
 
 	<variable name="ELPresentVar">
-		<value condition="String.IsEqual(Player.Process(video.dovi.el.present),1)">[COLOR palegreen]Yes[/COLOR]</value>
-		<value>[COLOR tomato]No[/COLOR]</value>
+		<value condition="String.IsEqual(Player.Process(video.dovi.el.present),1)">[COLOR palegreen]&#xEB7B;[/COLOR]</value>
+		<value>[COLOR tomato]&#xEB98;[/COLOR]</value>
 	</variable>
 
 	<variable name="ELSourcePresentVar">
-		<value condition="String.IsEqual(Player.Process(video.source.dovi.el.present),1)">[COLOR 8098FB98](src)[/COLOR]</value>
-		<value>[COLOR 80FF6347](src)[/COLOR]</value>
+		<value condition="String.IsEqual(Player.Process(video.source.dovi.el.present),1)">[COLOR 8098FB98]&#xEB7B;[/COLOR]</value>
+		<value>[COLOR 80FF6347]&#xEB98;[/COLOR]</value>
 	</variable>
 
 	<variable name="L5StateVar">
