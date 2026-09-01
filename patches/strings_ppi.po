@@ -369,10 +369,6 @@ msgid "Show filename row"
 msgstr ""
 
 #: /xml/SkinSettings.xml
-msgctxt "#31994"
-msgid "Hide the PPI button in the video OSD"
-msgstr ""
-
 #: /xml/SkinSettings.xml
 msgctxt "#31995"
 msgid "Player info (PPI)"

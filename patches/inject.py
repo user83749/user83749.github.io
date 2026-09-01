@@ -153,7 +153,7 @@ _OSD_CELL_A = """        <!-- PPI / VS10 button -->
           <orientation>vertical</orientation>
           <align>center</align>
           <itemgap>-3</itemgap>
-          <visible>!Skin.HasSetting(PPI.HideOSDButton)</visible>
+          <visible>Skin.HasSetting(PPI.ModernMode)</visible>
           <control type="button" id="717">
             <font>PlayerIconSmall</font>
             <textoffsety>7</textoffsety>
@@ -184,7 +184,7 @@ _OSD_CELL_B = """        <!-- PPI / VS10 button -->
           <align>center</align>
           <itemgap>12</itemgap>
           <width>64</width>
-          <visible>!Skin.HasSetting(PPI.HideOSDButton)</visible>
+          <visible>Skin.HasSetting(PPI.ModernMode)</visible>
           <control type="radiobutton" id="717">
             <include content="OSDButton">
               <param name="texture" value="special://skin/extras/icons/ppi.png"/>
@@ -209,7 +209,7 @@ _OSD_CELL_B = """        <!-- PPI / VS10 button -->
 
 
 def patch_videoosd(text):
-    if "PPI.HideOSDButton" in text:
+    if "Control.IsVisible(717)" in text:
         return text
     # Each OSD style variant has a settings button id="716" whose cell ends with
     # the standard onleft/onright block, then a small <label> control, then the
@@ -227,7 +227,11 @@ def patch_videoosd(text):
             cell = next(cells)
         except StopIteration:
             raise AnchorError("VideoOSD.xml", "more than 2 settings-button (716) cells matched")
-        return m.group(1) + "          <onright>717</onright>\n" + m.group(2) + cell
+        return (m.group(1)
+                + '          <onright condition="Control.IsVisible(717)">717</onright>\n'
+                + '          <onright condition="!Control.IsVisible(717) + Control.IsVisible(703)">703</onright>\n'
+                + '          <onright condition="!Control.IsVisible(717) + !Control.IsVisible(703)">704</onright>\n'
+                + m.group(2) + cell)
 
     new, n = pat.subn(repl, text)
     if n != 2:
@@ -267,12 +271,6 @@ _SETTINGS_GROUPLIST = """			<!-- PLAYER INFO / PPI -->
 					<selected>Skin.HasSetting(Filename.PPI)</selected>
 					<onclick>Skin.ToggleSetting(Filename.PPI)</onclick>
 					<visible>Skin.HasSetting(PPI.ModernMode)</visible>
-				</control>
-				<control type="radiobutton" id="64505">
-					<label>$LOCALIZE[31994]</label>
-					<include>DefaultSettingButton</include>
-					<selected>Skin.HasSetting(PPI.HideOSDButton)</selected>
-					<onclick>Skin.ToggleSetting(PPI.HideOSDButton)</onclick>
 				</control>
 				<control type="button" id="64506">
 					<label>[CAPITALIZE]$LOCALIZE[10116][/CAPITALIZE]</label>

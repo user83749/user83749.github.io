@@ -31,11 +31,12 @@ grep -q 'Variables_PPI.xml'               "$W/src/xml/Includes.xml"
 grep -q 'font_tiny_iconic_regular'        "$W/src/xml/Font.xml"
 grep -q 'dialog_fg_100'                   "$W/src/colors/defaults.xml"
 grep -q '<include>PPI_Modern</include>'   "$W/src/xml/DialogPlayerProcessInfo.xml"
-grep -q 'PPI.HideOSDButton'              "$W/src/xml/VideoOSD.xml"
+grep -q '<visible>Skin.HasSetting(PPI.ModernMode)</visible>' "$W/src/xml/VideoOSD.xml"  # 717 only when dashboard on
 grep -q 'Container(9000).HasFocus(11)'    "$W/src/xml/SkinSettings.xml"
 grep -q 'LOCALIZE\[31995\]'               "$W/src/xml/SkinSettings.xml"
 grep -q '#31900'                          "$W/src/language/resource.language.en_gb/strings.po"
-test "$(grep -c '<onright>717</onright>' "$W/src/xml/VideoOSD.xml")" = 2
+test "$(grep -c 'id="717"' "$W/src/xml/VideoOSD.xml")" -ge 3               # 2 live 717 buttons + 1 in the commented block
+grep -q 'condition="Control.IsVisible(717)">717</onright>' "$W/src/xml/VideoOSD.xml"  # 716 diverts to 717 only when visible
 
 echo "# idempotent (pass 2 makes no change)"
 BEFORE="$(find "$W/src" -type f -exec sha1sum {} + | sort | sha1sum)"
