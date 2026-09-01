@@ -128,18 +128,6 @@ def patch_colors(text):
     return text.replace("</colors>", _COLOR_BLOCK + "</colors>", 1)
 
 
-# --------------------------------------------------------- VideoFullScreen.xml ---
-def patch_videofullscreen(text):
-    if "PPI_CodecFlash" in text:
-        return text
-    if "<include>PlaybackTimer</include>" in text:
-        return text.replace("<include>PlaybackTimer</include>",
-                            "<include>PlaybackTimer</include>\n\t\t<include>PPI_CodecFlash</include>", 1)
-    # fall back: drop it in just before </controls>
-    if "</controls>" not in text:
-        raise AnchorError("VideoFullScreen.xml", "<include>PlaybackTimer</include> / </controls>")
-    return text.replace("</controls>", "\t<include>PPI_CodecFlash</include>\n\t</controls>", 1)
-
 
 # ---------------------------------------------- DialogPlayerProcessInfo.xml ---
 def patch_dppi(text):
@@ -280,12 +268,6 @@ _SETTINGS_GROUPLIST = """			<!-- PLAYER INFO / PPI -->
 					<onclick>Skin.ToggleSetting(Filename.PPI)</onclick>
 					<visible>Skin.HasSetting(PPI.ModernMode)</visible>
 				</control>
-				<control type="button" id="64507">
-					<label>$LOCALIZE[31996]</label>
-					<label2>$VAR[PPICodecFlashSettingVar]</label2>
-					<include>DefaultSettingButton</include>
-					<onclick>$VAR[PPICodecFlashCycleVar]</onclick>
-				</control>
 				<control type="radiobutton" id="64505">
 					<label>$LOCALIZE[31994]</label>
 					<include>DefaultSettingButton</include>
@@ -352,7 +334,6 @@ def main(argv):
     edit(root / "xml/Includes.xml", patch_includes)
     edit(root / "xml/Font.xml", patch_font)
     edit(root / "colors/defaults.xml", patch_colors)
-    edit(root / "xml/VideoFullScreen.xml", patch_videofullscreen)
     edit(root / "xml/DialogPlayerProcessInfo.xml", patch_dppi)
     edit(root / "xml/VideoOSD.xml", patch_videoosd)
     edit(root / "xml/SkinSettings.xml", patch_skinsettings)

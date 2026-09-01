@@ -2229,17 +2229,4 @@
 		</control>
     </include>
 
-	<!-- Codec logos flashed for a few seconds when playback starts (PPI.CodecFlash = 3|5|10) -->
-	<include name="PPI_CodecFlash">
-		<control type="group">
-			<visible>!String.IsEmpty(Skin.String(PPI.CodecFlash))</visible>
-			<visible>Player.HasVideo + !Player.Paused</visible>
-			<visible>Integer.IsGreater(Skin.String(PPI.CodecFlash),Player.Time(secs))</visible>
-			<animation effect="fade" start="0" end="100" time="300">Visible</animation>
-			<animation effect="fade" start="100" end="0" time="600">Hidden</animation>
-			<left>60</left>
-			<top>60</top>
-			<include>CodecLogosLeftPPI</include>
-		</control>
-	</include>
 </includes>
