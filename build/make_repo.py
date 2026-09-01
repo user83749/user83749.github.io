@@ -150,6 +150,19 @@ code{{background:#eee;padding:.1em .3em;border-radius:3px}}</style></head><body>
 </body></html>
 """, encoding="utf-8")
 
+    # Minimal listing so the datadir root itself returns 200 (some Kodi builds
+    # probe it). Not linked from index.html, so it stays out of the zip picker.
+    def _dirindex(d: pathlib.Path):
+        rows = "\n".join(
+            f'<li><a href="{p.name}{"/" if p.is_dir() else ""}">{p.name}</a></li>'
+            for p in sorted(d.iterdir()) if p.name != "index.html")
+        (d / "index.html").write_text(
+            f"<!DOCTYPE html><html><body><ul>\n{rows}\n</ul></body></html>\n", encoding="utf-8")
+
+    _dirindex(out / "zips")
+    _dirindex(zdir_skin)
+    _dirindex(zdir_repo)
+
     print(f"make_repo.py: wrote {out}/  (skin {skin_id} {skin_ver}, repo {repo_id} {repo_ver})")
 
 
