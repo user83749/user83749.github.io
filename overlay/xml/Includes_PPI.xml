@@ -1591,8 +1591,8 @@
 						<width>258</width>
 						<control type="progress">
 							<description>BAR</description>
-							<centertop>50%</centertop>
-							<width>100%</width>
+							<top>10</top>
+							<width>258</width>
 							<height>6</height>
 							<info>Player.CacheLevel</info>
 							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
@@ -1620,8 +1620,8 @@
 						<width>258</width>
 						<control type="progress">
 							<description>BAR</description>
-							<centertop>50%</centertop>
-							<width>100%</width>
+							<top>10</top>
+							<width>258</width>
 							<height>6</height>
 							<info>Player.Process(video.queue.level)</info>
 							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
@@ -1649,8 +1649,8 @@
 						<width>258</width>
 						<control type="progress">
 							<description>BAR</description>
-							<centertop>50%</centertop>
-							<width>100%</width>
+							<top>10</top>
+							<width>258</width>
 							<height>6</height>
 							<info>Player.Process(video.queue.data.level)</info>
 							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
@@ -1678,8 +1678,8 @@
 						<width>258</width>
 						<control type="progress">
 							<description>BAR</description>
-							<centertop>50%</centertop>
-							<width>100%</width>
+							<top>10</top>
+							<width>258</width>
 							<height>6</height>
 							<info>Player.Process(audio.queue.level)</info>
 							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
@@ -1707,8 +1707,8 @@
 						<width>258</width>
 						<control type="progress">
 							<description>BAR</description>
-							<centertop>50%</centertop>
-							<width>100%</width>
+							<top>10</top>
+							<width>258</width>
 							<height>6</height>
 							<info>Player.Process(audio.queue.data.level)</info>
 							<texturebg colordiffuse="dialog_fg_12" border="3">progress/progress-bg.png</texturebg>
