@@ -86,9 +86,9 @@ def patch_includes(text):
 # ----------------------------------------------------------------- Font.xml ---
 _FONT_BLOCK = (
     "\n\t\t<!-- PPI - player process info dashboard fonts -->"
-    "\n\t\t<font>\n\t\t\t<name>font_tiny</name>\n\t\t\t<filename>Inter-Regular.ttf</filename>\n\t\t\t<size>21</size>\n\t\t</font>"
-    "\n\t\t<font>\n\t\t\t<name>font_tiny_iconic_regular</name>\n\t\t\t<filename>remixicon.ttf</filename>\n\t\t\t<size>22</size>\n\t\t\t<style>symbol</style>\n\t\t</font>"
-    "\n\t\t<font>\n\t\t\t<name>font_tiny_iconic</name>\n\t\t\t<filename>remixicon.ttf</filename>\n\t\t\t<size>22</size>\n\t\t\t<style>symbol</style>\n\t\t</font>"
+    "\n\t\t<font>\n\t\t\t<name>font_tiny</name>\n\t\t\t<filename>Inter-Regular.ttf</filename>\n\t\t\t<size>23</size>\n\t\t</font>"
+    "\n\t\t<font>\n\t\t\t<name>font_tiny_iconic_regular</name>\n\t\t\t<filename>remixicon.ttf</filename>\n\t\t\t<size>24</size>\n\t\t\t<style>symbol</style>\n\t\t</font>"
+    "\n\t\t<font>\n\t\t\t<name>font_tiny_iconic</name>\n\t\t\t<filename>remixicon.ttf</filename>\n\t\t\t<size>24</size>\n\t\t\t<style>symbol</style>\n\t\t</font>"
 )
 
 
