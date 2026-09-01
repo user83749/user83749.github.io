@@ -269,10 +269,6 @@
 
 	<!-- ============ Nimbus settings helpers ============ -->
 
-	<variable name="PPIModeSettingVar">
-		<value condition="Skin.HasSetting(PPI.ModernMode)">$LOCALIZE[31977]</value>
-		<value>$LOCALIZE[1223]</value>
-	</variable>
 
 	<!-- codec-logo position: cycles Off -&gt; Left -&gt; Center -&gt; Right. One action per click. -->
 	<variable name="PPICodecLogoCycleVar">
@@ -286,6 +282,20 @@
 		<value condition="String.IsEqual(Skin.String(PPI.CodecLogos),left)">$LOCALIZE[31957]</value>
 		<value condition="String.IsEqual(Skin.String(PPI.CodecLogos),center)">$LOCALIZE[31958]</value>
 		<value condition="String.IsEqual(Skin.String(PPI.CodecLogos),right)">$LOCALIZE[31959]</value>
+		<value>$LOCALIZE[1223]</value>
+	</variable>
+
+	<variable name="PPICodecFlashCycleVar">
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),3)">Skin.SetString(PPI.CodecFlash,5)</value>
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),5)">Skin.SetString(PPI.CodecFlash,10)</value>
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),10)">Skin.Reset(PPI.CodecFlash)</value>
+		<value>Skin.SetString(PPI.CodecFlash,3)</value>
+	</variable>
+
+	<variable name="PPICodecFlashSettingVar">
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),3)">3s</value>
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),5)">5s</value>
+		<value condition="String.IsEqual(Skin.String(PPI.CodecFlash),10)">10s</value>
 		<value>$LOCALIZE[1223]</value>
 	</variable>
 

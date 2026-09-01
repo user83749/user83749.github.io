@@ -104,19 +104,19 @@ def patch_font(text):
 
 # ----------------------------------------------------------- defaults.xml ---
 _COLOR_BLOCK = (
-    "\t<!-- PPI - neutral foreground ramp for the player process info dashboard -->\n"
-    '\t<color name="dialog_fg_100">ffededed</color>\n'
-    '\t<color name="dialog_fg_90">e7ededed</color>\n'
-    '\t<color name="dialog_fg_70">b3ededed</color>\n'
-    '\t<color name="dialog_fg_50">80ededed</color>\n'
-    '\t<color name="dialog_fg_30">4dededed</color>\n'
-    '\t<color name="dialog_fg_12">1fededed</color>\n'
-    '\t<color name="dialog_fg_06">0fededed</color>\n'
-    '\t<color name="panel_fg_100">ffededed</color>\n'
-    '\t<color name="panel_fg_90">e7ededed</color>\n'
-    '\t<color name="panel_fg_70">b3ededed</color>\n'
-    '\t<color name="panel_fg_30">4dededed</color>\n'
-    '\t<color name="panel_fg_12">1fededed</color>\n'
+    "\t<!-- PPI - pure white foreground for the player process info dashboard -->\n"
+    '\t<color name="dialog_fg_100">FFFFFFFF</color>\n'
+    '\t<color name="dialog_fg_90">FFFFFFFF</color>\n'
+    '\t<color name="dialog_fg_70">FFFFFFFF</color>\n'
+    '\t<color name="dialog_fg_50">80FFFFFF</color>\n'
+    '\t<color name="dialog_fg_30">4DFFFFFF</color>\n'
+    '\t<color name="dialog_fg_12">1FFFFFFF</color>\n'
+    '\t<color name="dialog_fg_06">0FFFFFFF</color>\n'
+    '\t<color name="panel_fg_100">FFFFFFFF</color>\n'
+    '\t<color name="panel_fg_90">FFFFFFFF</color>\n'
+    '\t<color name="panel_fg_70">FFFFFFFF</color>\n'
+    '\t<color name="panel_fg_30">4DFFFFFF</color>\n'
+    '\t<color name="panel_fg_12">1FFFFFFF</color>\n'
 )
 
 
@@ -126,6 +126,19 @@ def patch_colors(text):
     if "</colors>" not in text:
         raise AnchorError("defaults.xml", "</colors>")
     return text.replace("</colors>", _COLOR_BLOCK + "</colors>", 1)
+
+
+# --------------------------------------------------------- VideoFullScreen.xml ---
+def patch_videofullscreen(text):
+    if "PPI_CodecFlash" in text:
+        return text
+    if "<include>PlaybackTimer</include>" in text:
+        return text.replace("<include>PlaybackTimer</include>",
+                            "<include>PlaybackTimer</include>\n\t\t<include>PPI_CodecFlash</include>", 1)
+    # fall back: drop it in just before </controls>
+    if "</controls>" not in text:
+        raise AnchorError("VideoFullScreen.xml", "<include>PlaybackTimer</include> / </controls>")
+    return text.replace("</controls>", "\t<include>PPI_CodecFlash</include>\n\t</controls>", 1)
 
 
 # ---------------------------------------------- DialogPlayerProcessInfo.xml ---
@@ -249,7 +262,6 @@ _SETTINGS_GROUPLIST = """			<!-- PLAYER INFO / PPI -->
 				<visible>Container(9000).HasFocus(11)</visible>
 				<control type="radiobutton" id="64501">
 					<label>$LOCALIZE[31983]</label>
-					<label2>$VAR[PPIModeSettingVar]</label2>
 					<include>DefaultSettingButton</include>
 					<selected>Skin.HasSetting(PPI.ModernMode)</selected>
 					<onclick>Skin.ToggleSetting(PPI.ModernMode)</onclick>
@@ -261,19 +273,18 @@ _SETTINGS_GROUPLIST = """			<!-- PLAYER INFO / PPI -->
 					<onclick>$VAR[PPICodecLogoCycleVar]</onclick>
 					<visible>Skin.HasSetting(PPI.ModernMode)</visible>
 				</control>
-				<control type="radiobutton" id="64503">
-					<label>    - $LOCALIZE[31985]</label>
-					<include>DefaultSettingButton</include>
-					<selected>!Skin.HasSetting(PPI.HideChannelLayout)</selected>
-					<onclick>Skin.ToggleSetting(PPI.HideChannelLayout)</onclick>
-					<visible>Skin.HasSetting(PPI.ModernMode)</visible>
-				</control>
-				<control type="radiobutton" id="64504">
+				<control type="button" id="64504">
 					<label>    - $LOCALIZE[31986]</label>
 					<include>DefaultSettingButton</include>
 					<selected>Skin.HasSetting(Filename.PPI)</selected>
 					<onclick>Skin.ToggleSetting(Filename.PPI)</onclick>
 					<visible>Skin.HasSetting(PPI.ModernMode)</visible>
+				</control>
+				<control type="button" id="64507">
+					<label>$LOCALIZE[31996]</label>
+					<label2>$VAR[PPICodecFlashSettingVar]</label2>
+					<include>DefaultSettingButton</include>
+					<onclick>$VAR[PPICodecFlashCycleVar]</onclick>
 				</control>
 				<control type="radiobutton" id="64505">
 					<label>$LOCALIZE[31994]</label>
@@ -341,6 +352,7 @@ def main(argv):
     edit(root / "xml/Includes.xml", patch_includes)
     edit(root / "xml/Font.xml", patch_font)
     edit(root / "colors/defaults.xml", patch_colors)
+    edit(root / "xml/VideoFullScreen.xml", patch_videofullscreen)
     edit(root / "xml/DialogPlayerProcessInfo.xml", patch_dppi)
     edit(root / "xml/VideoOSD.xml", patch_videoosd)
     edit(root / "xml/SkinSettings.xml", patch_skinsettings)

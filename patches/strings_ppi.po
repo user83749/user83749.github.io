@@ -378,3 +378,8 @@ msgctxt "#31995"
 msgid "Player info (PPI)"
 msgstr ""
 
+
+#: /xml/SkinSettings.xml
+msgctxt "#31996"
+msgid "Codec flash on playback start"
+msgstr ""
