@@ -1185,7 +1185,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31954][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>35</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
@@ -1328,7 +1328,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31907][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>35</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
@@ -1480,7 +1480,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31939][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>35</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
@@ -1552,7 +1552,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31988][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>38</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
@@ -1769,7 +1769,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31956][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>36</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
@@ -2126,7 +2126,7 @@
 					<control type="label">
 						<label>[B][UPPERCASE]$LOCALIZE[31922][/UPPERCASE][/B]</label>
 						<top>-25</top>
-						<left>40</left>
+						<left>0</left>
 						<font>font_tiny</font>
 						<textcolor>dialog_fg_100</textcolor>
 					</control>
