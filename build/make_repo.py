@@ -24,7 +24,10 @@ import sys
 import zipfile
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-REPO_SRC = ROOT / "repo-src" / "repository.nimbus.ppi"
+try:
+    REPO_SRC = next(p for p in sorted((ROOT / "repo-src").glob("repository.*")) if p.is_dir())
+except StopIteration:
+    sys.exit("make_repo.py: no repo-src/repository.* add-on found")
 
 
 def addon_block(addon_xml_text):

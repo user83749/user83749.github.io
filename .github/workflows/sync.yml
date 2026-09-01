@@ -42,7 +42,13 @@ jobs:
       - name: Resolve URLs & state
         id: ctx
         run: |
-          BASE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}"
+          OWNER_LC=$(echo "$GITHUB_REPOSITORY_OWNER" | tr '[:upper:]' '[:lower:]')
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          if [ "$(echo "$REPO_NAME" | tr '[:upper:]' '[:lower:]')" = "$OWNER_LC.github.io" ]; then
+            BASE="https://$OWNER_LC.github.io"          # user/org site -> served at root
+          else
+            BASE="https://$OWNER_LC.github.io/$REPO_NAME"
+          fi
           echo "base=$BASE" >> "$GITHUB_OUTPUT"
           # upstream version (raw addon.xml on main)
           UPVER=$(curl -fsSL https://raw.githubusercontent.com/ivarbrandt/skin.nimbus/main/addon.xml \

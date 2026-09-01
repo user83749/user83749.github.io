@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon id="repository.user83749" name="user83749 Repository" version="1.0.0" provider-name="user83749">
+  <extension point="xbmc.addon.repository" name="user83749 Repository">
+    <dir>
+      <info compressed="false">@@BASEURL@@/addons.xml</info>
+      <checksum>@@BASEURL@@/addons.xml.md5</checksum>
+      <datadir zip="true">@@BASEURL@@/zips/</datadir>
+    </dir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Auto-updating skin mods by user83749</summary>
+    <description lang="en_GB">Delivers user83749's Kodi skin modifications, rebuilt automatically whenever the upstream skins publish a new version. Currently: skin.nimbus.ppi (Nimbus + Player Process Info dashboard and VS10 quick switch for P3i / CoreELEC "VS10" builds).</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

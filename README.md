@@ -1,4 +1,4 @@
-# nimbus-ppi
+# user83749.github.io — Kodi skin mods
 
 Keeps a personal build of the **Nimbus** Kodi skin — `skin.nimbus.ppi` — that adds a
 **Player Process Info (PPI) dashboard** and a **VS10 output-mode quick switch** for
@@ -23,7 +23,7 @@ patches/     inject.py — re-applies 8 small anchored edits to upstream files
              strings_ppi.po — the PPI language strings, appended to upstream's .po
 build/       build.sh   — clone upstream → overlay → inject → validate → zip
              make_repo.py — assemble the Pages/Kodi-repository tree
-repo-src/    repository.nimbus.ppi — the Kodi repository add-on
+repo-src/    repository.user83749 — the Kodi repository add-on
 .github/     sync.yml  — daily: if upstream changed OR overlay/patches changed,
                          rebuild + publish Pages + cut a Release
              test.yml  — runs tests/run.sh on every push/PR
@@ -44,9 +44,9 @@ always sorts above plain upstream, so Kodi offers the update.
 4. In Kodi:
    - Keep `repository.ivarbrandt` installed — it provides `script.nimbus.helper`,
      which this skin depends on.
-   - *Settings → File manager → Add source* → `https://<you>.github.io/<repo>/`
-   - *Add-ons → Install from zip file* → that source → `repository.nimbus.ppi-1.0.0.zip`
-   - *Install from repository → Nimbus PPI Repository → Look and feel → Skin → Nimbus PPI*
+   - *Settings → File manager → Add source* → `https://user83749.github.io/`
+   - *Add-ons → Install from zip file* → that source → `repository.user83749-1.0.0.zip`
+   - *Install from repository → user83749 Repository → Look and feel → Skin → Nimbus PPI*
    - Enable auto-updates for the skin.
 
 After that it is hands-off. New upstream Nimbus release → daily job rebuilds → Kodi
@@ -60,7 +60,7 @@ bash build/build.sh main             # build out/skin.nimbus.ppi-<ver>.zip
 python3 build/make_repo.py \
   --skin-dir out/skin.nimbus.ppi \
   --skin-zip out/skin.nimbus.ppi-<ver>.zip \
-  --base-url https://<you>.github.io/<repo> \
+  --base-url https://user83749.github.io \
   --out out/www
 ```
 
