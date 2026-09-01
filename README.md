@@ -1,13 +1,15 @@
 # user83749.github.io — Kodi skin mods
 
-Keeps a personal build of the **Nimbus** Kodi skin — `skin.nimbus.ppi` — that adds a
+Keeps a modded build of the **Nimbus** Kodi skin that adds a
 **Player Process Info (PPI) dashboard** and a **VS10 output-mode quick switch** for
 P3i / CoreELEC "VS10" Kodi 21 builds, and **rebuilds itself automatically whenever
 upstream Nimbus publishes a new version**. Delivered as a Kodi repository on GitHub
 Pages, so Kodi auto-updates it in place.
 
-`skin.nimbus.ppi` installs **alongside** stock `skin.nimbus` (separate add-on id) — an
-official Nimbus update never touches it, and vice-versa.
+It keeps the upstream add-on id **`skin.nimbus`**, so Kodi updates your Nimbus in
+place and keeps your skin settings. Versions are **`1.6.x`** (`state/version-base.txt`),
+deliberately far above upstream's `0.1.x`, so the official repo never overrides this
+build. Each rebuild bumps the `.x`.
 
 ## How it works
 
@@ -50,16 +52,16 @@ always sorts above plain upstream, so Kodi offers the update.
    - Enable auto-updates for the skin.
 
 After that it is hands-off. New upstream Nimbus release → daily job rebuilds → Kodi
-updates `skin.nimbus.ppi` on its next add-on check.
+updates `skin.nimbus` (v1.6.x) on its next add-on check.
 
 ## Local use
 
 ```sh
 bash tests/run.sh                     # regression + idempotency check
-bash build/build.sh main             # build out/skin.nimbus.ppi-<ver>.zip
+bash build/build.sh main             # build out/skin.nimbus-<ver>.zip
 python3 build/make_repo.py \
-  --skin-dir out/skin.nimbus.ppi \
-  --skin-zip out/skin.nimbus.ppi-<ver>.zip \
+  --skin-dir out/skin.nimbus \
+  --skin-zip out/skin.nimbus-<ver>.zip \
   --base-url https://user83749.github.io \
   --out out/www
 ```

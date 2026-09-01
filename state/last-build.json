@@ -1,5 +1,6 @@
 {
   "upstream": "",
+  "base": "1.6",
   "hash": "",
   "serial": 0,
   "version": ""

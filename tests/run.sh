@@ -23,8 +23,9 @@ for f in addon.xml xml/Includes.xml xml/Font.xml colors/defaults.xml \
 done
 
 echo "# markers present"
-grep -q 'id="skin.nimbus.ppi"'            "$W/src/addon.xml"
+grep -q 'id="skin.nimbus"'                "$W/src/addon.xml"   # id unchanged (updates in place)
 grep -q 'version="9.9.9.9"'               "$W/src/addon.xml"
+! grep -q 'id="skin.nimbus.ppi"'          "$W/src/addon.xml"   # must NOT fork the id
 grep -q 'Includes_PPI.xml'                "$W/src/xml/Includes.xml"
 grep -q 'Variables_PPI.xml'               "$W/src/xml/Includes.xml"
 grep -q 'font_tiny_iconic_regular'        "$W/src/xml/Font.xml"

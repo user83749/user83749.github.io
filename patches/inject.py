@@ -56,18 +56,14 @@ def edit(path, fn):
 
 # ---------------------------------------------------------------- addon.xml ---
 def patch_addon(text, version):
-    if 'id="skin.nimbus.ppi"' in text:
-        return text
+    # Keep the upstream id ("skin.nimbus") and name ("Nimbus") so Kodi treats
+    # this as the same skin, just a newer version - it updates in place and
+    # keeps the user's existing skin settings. Only the version is bumped.
     if 'id="skin.nimbus"' not in text:
         raise AnchorError("addon.xml", 'id="skin.nimbus"')
-    text = text.replace('id="skin.nimbus"', 'id="skin.nimbus.ppi"', 1)
-    text = re.sub(r'(<addon\b[^>]*?)\bversion="[^"]*"', rf'\1version="{version}"', text, count=1)
-    text = text.replace('name="Nimbus"', 'name="Nimbus PPI"', 1)
-    text = re.sub(r'(<summary lang="[^"]*">)([^<]*)(</summary>)',
-                  lambda m: m.group(1) + m.group(2).replace("Nimbus", "Nimbus PPI", 1) + m.group(3), text)
-    text = re.sub(r'(<description lang="[^"]*">)([^<]*)(</description>)',
-                  lambda m: m.group(1) + m.group(2).replace("Nimbus", "Nimbus PPI", 1) + m.group(3), text)
-    return text
+    if f'version="{version}"' in text:
+        return text
+    return re.sub(r'(<addon\b[^>]*?)\bversion="[^"]*"', rf'\1version="{version}"', text, count=1)
 
 
 # ------------------------------------------------------------ Includes.xml ---

@@ -58,21 +58,33 @@ jobs:
           HASH=$(find overlay patches repo-src build -type f -print0 | sort -z \
                  | xargs -0 sha1sum | sha1sum | cut -c1-12)
           echo "hash=$HASH" >> "$GITHUB_OUTPUT"
+          # version base ("1.6") -> published versions are <base>.<serial>
+          BASEVER=$(tr -d '[:space:]' < state/version-base.txt)
+          echo "basever=$BASEVER" >> "$GITHUB_OUTPUT"
           # previous state (published on Pages); missing on first run
           PREV=$(curl -fsSL "$BASE/last-build.json" || echo '{}')
           echo "prev_upstream=$(echo "$PREV" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("upstream",""))')" >> "$GITHUB_OUTPUT"
           echo "prev_hash=$(echo "$PREV"     | python3 -c 'import json,sys;print(json.load(sys.stdin).get("hash",""))')"     >> "$GITHUB_OUTPUT"
           echo "prev_serial=$(echo "$PREV"   | python3 -c 'import json,sys;print(json.load(sys.stdin).get("serial",0))')"    >> "$GITHUB_OUTPUT"
+          echo "prev_version=$(echo "$PREV"  | python3 -c 'import json,sys;print(json.load(sys.stdin).get("version",""))')"  >> "$GITHUB_OUTPUT"
 
       - name: Decide
         id: decide
         run: |
           FORCE="${{ github.event.inputs.force }}"
+          BASEVER="${{ steps.ctx.outputs.basever }}"
+          PREV_VER="${{ steps.ctx.outputs.prev_version }}"
+          # restart the .serial counter at 0 whenever the base ("1.6") changes
+          case "$PREV_VER" in
+            "$BASEVER".*) NEXT_SERIAL=$(( ${{ steps.ctx.outputs.prev_serial }} + 1 )) ;;
+            *)            NEXT_SERIAL=0 ;;
+          esac
           if [ "$FORCE" = "true" ] \
              || [ "${{ steps.ctx.outputs.upstream }}" != "${{ steps.ctx.outputs.prev_upstream }}" ] \
-             || [ "${{ steps.ctx.outputs.hash }}" != "${{ steps.ctx.outputs.prev_hash }}" ]; then
+             || [ "${{ steps.ctx.outputs.hash }}" != "${{ steps.ctx.outputs.prev_hash }}" ] \
+             || [ -z "$PREV_VER" ]; then
             echo "build=yes" >> "$GITHUB_OUTPUT"
-            echo "serial=$(( ${{ steps.ctx.outputs.prev_serial }} + 1 ))" >> "$GITHUB_OUTPUT"
+            echo "serial=$NEXT_SERIAL" >> "$GITHUB_OUTPUT"
           else
             echo "build=no" >> "$GITHUB_OUTPUT"
             echo "Nothing changed (upstream ${{ steps.ctx.outputs.upstream }}, hash ${{ steps.ctx.outputs.hash }}). Skipping."
@@ -91,13 +103,14 @@ jobs:
         if: steps.decide.outputs.build == 'yes'
         run: |
           python3 build/make_repo.py \
-            --skin-dir out/skin.nimbus.ppi \
-            --skin-zip out/skin.nimbus.ppi-${{ steps.bld.outputs.version }}.zip \
+            --skin-dir out/skin.nimbus \
+            --skin-zip out/skin.nimbus-${{ steps.bld.outputs.version }}.zip \
             --base-url "${{ steps.ctx.outputs.base }}" \
             --out out/www
           python3 - <<'PY'
           import json
           json.dump({"upstream":"${{ steps.ctx.outputs.upstream }}",
+                     "base":"${{ steps.ctx.outputs.basever }}",
                      "hash":"${{ steps.ctx.outputs.hash }}",
                      "serial": ${{ steps.decide.outputs.serial }},
                      "version":"${{ steps.bld.outputs.version }}"},
@@ -120,8 +133,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ steps.bld.outputs.version }}
-          name: skin.nimbus.ppi ${{ steps.bld.outputs.version }}
+          name: Nimbus (mod) ${{ steps.bld.outputs.version }}
           body: |
+            skin.nimbus ${{ steps.bld.outputs.version }} — Nimbus + PPI dashboard / VS10 quick switch.
             Built from upstream ivarbrandt/skin.nimbus ${{ steps.ctx.outputs.upstream }}.
             Repository (auto-update): `${{ steps.ctx.outputs.base }}/`
-          files: out/skin.nimbus.ppi-${{ steps.bld.outputs.version }}.zip
+          files: out/skin.nimbus-${{ steps.bld.outputs.version }}.zip

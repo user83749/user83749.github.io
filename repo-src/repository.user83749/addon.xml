@@ -9,7 +9,7 @@
   </extension>
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Auto-updating skin mods by user83749</summary>
-    <description lang="en_GB">Delivers user83749's Kodi skin modifications, rebuilt automatically whenever the upstream skins publish a new version. Currently: skin.nimbus.ppi (Nimbus + Player Process Info dashboard and VS10 quick switch for P3i / CoreELEC "VS10" builds).</description>
+    <description lang="en_GB">Delivers user83749's Kodi skin modifications, rebuilt automatically whenever the upstream skins publish a new version. Currently: skin.nimbus (Nimbus + Player Process Info dashboard and VS10 quick switch for P3i / CoreELEC "VS10" builds), versioned 1.6.x so it updates Nimbus in place and is not overridden by the official 0.1.x releases.</description>
     <platform>all</platform>
     <assets>
       <icon>icon.png</icon>
