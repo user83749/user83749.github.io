@@ -46,19 +46,30 @@ PY
 )"
 echo ">> upstream skin.nimbus $UPVER  ->  building skin.nimbus $VERSION"
 
-echo ">> applying overlay"
-cp -R "$ROOT/overlay/." "$WORK/src/"
-
-echo ">> running inject.py"
-python3 "$ROOT/patches/inject.py" "$WORK/src" "$VERSION"
+if [ "${NOMOD:-}" = "true" ] || [ "${NOMOD:-}" = "1" ]; then
+  echo ">> NOMOD set - publishing STOCK Nimbus (no PPI mod), version bump only"
+  python3 - "$WORK/src/addon.xml" "$VERSION" <<'PY'
+import sys, re, pathlib
+p = pathlib.Path(sys.argv[1])
+p.write_text(re.sub(r'(<addon\b[^>]*?)\bversion="[^"]*"', r'\1version="%s"' % sys.argv[2],
+                    p.read_text(encoding="utf-8"), count=1), encoding="utf-8")
+PY
+else
+  echo ">> applying overlay"
+  cp -R "$ROOT/overlay/." "$WORK/src/"
+  echo ">> running inject.py"
+  python3 "$ROOT/patches/inject.py" "$WORK/src" "$VERSION"
+fi
 
 echo ">> validating XML"
-CHANGED="addon.xml xml/Includes.xml xml/Font.xml colors/defaults.xml
-         xml/DialogPlayerProcessInfo.xml xml/VideoOSD.xml xml/SkinSettings.xml
-         xml/Includes_PPI.xml xml/Variables_PPI.xml xml/Custom_1159_OSD_PPI_VS10.xml"
-for f in $CHANGED; do
-  xmllint --noout "$WORK/src/$f"
-done
+if [ "${NOMOD:-}" != "true" ] && [ "${NOMOD:-}" != "1" ]; then
+  CHANGED="addon.xml xml/Includes.xml xml/Font.xml colors/defaults.xml
+           xml/DialogPlayerProcessInfo.xml xml/VideoOSD.xml xml/SkinSettings.xml
+           xml/Includes_PPI.xml xml/Variables_PPI.xml xml/Custom_1159_OSD_PPI_VS10.xml"
+  for f in $CHANGED; do
+    xmllint --noout "$WORK/src/$f"
+  done
+fi
 find "$WORK/src/xml" "$WORK/src/colors" -name '*.xml' -print0 | xargs -0 -n1 xmllint --noout
 
 echo ">> packaging"
