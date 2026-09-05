@@ -1084,7 +1084,7 @@
 			<control type="image">
 				<left>0</left>
 				<right>0</right>
-				<top>320</top>
+				<top>432</top>
 				<bottom>0</bottom>
 				<texture colordiffuse="FF000000">colors/white.png</texture>
 			</control>
@@ -1096,7 +1096,7 @@
 
 			<!-- Group: Bottom screen -->
 			<control type="group">
-				<top>350</top>
+				<top>460</top>
 				<width>1920</width>
 				<height>0</height>
 				
@@ -2202,7 +2202,7 @@
 				<control type="group">
 					<visible>String.Contains(Player.Process(video.hdr.type),sdr)</visible>
 					<visible>Skin.HasSetting(Filename.PPI)</visible>
-					<top>640</top>
+					<top>580</top>
 					<control type="label">
 						<left>50</left>
 						<width>1195</width>
@@ -2215,7 +2215,7 @@
 				<control type="group">
 					<visible>String.IsEqual(Player.Process(video.dovi.has.config),1) | String.Contains(Player.Process(video.hdr.type),hdr)</visible>
 					<visible>Skin.HasSetting(Filename.PPI)</visible>
-					<top>640</top>
+					<top>580</top>
 					<control type="label">
 						<left>50</left>
 						<width>1820</width>
